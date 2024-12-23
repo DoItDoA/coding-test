@@ -14,7 +14,7 @@ public class Main {
         public static int solution(int[] numbers, int target) {
             numberAll = numbers;
             targetAll = target;
-
+            
             dfs(0, 0);
             int answer = count;
             return answer;
