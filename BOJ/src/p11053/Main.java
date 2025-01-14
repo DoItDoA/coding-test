@@ -21,7 +21,7 @@ public class Main {
             dp[i] = 1;
         }
 
-        int max = 0;
+        int max = 1;
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (num[i] > num[j]) {
