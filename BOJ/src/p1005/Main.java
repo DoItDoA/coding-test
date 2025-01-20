@@ -1,5 +1,5 @@
 package p1005;
-// 보류
+// 어려움
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,63 +12,53 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
-        StringBuilder sb = new StringBuilder();
 
-        for (int test = 0; test < t; test++) {
+        while (t-- > 0) {
             String[] s = br.readLine().split(" ");
             int n = Integer.parseInt(s[0]);
             int k = Integer.parseInt(s[1]);
 
-            int[] buildTime = new int[n + 1]; // 각 건물의 건설 시간
-            int[] indegree = new int[n + 1]; // 각 건물의 진입 차수
-            int[] dp = new int[n + 1]; // 최소 건설 시간
-            List<List<Integer>> graph = new ArrayList<>();
-
-            for (int i = 0; i <= n; i++) {
-                graph.add(new ArrayList<>());
-            }
-
-            // 건설 시간 입력
+            int[] buildTime = new int[n];
             s = br.readLine().split(" ");
-            for (int i = 1; i <= n; i++) {
-                buildTime[i] = Integer.parseInt(s[i - 1]);
+            for (int i = 0; i < n; i++) {
+                buildTime[i] = Integer.parseInt(s[i]);
             }
 
-            // 규칙 입력
-            for (int i = 1; i <= k; i++) {
+            int[] indegree = new int[n];
+            int[] dp = new int[n];
+            List<List<Integer>> seq = new ArrayList<>();
+            while (n-- > 0) {
+                seq.add(new ArrayList<>());
+            }
+            for (int i = 0; i < k; i++) {
                 s = br.readLine().split(" ");
-                int x = Integer.parseInt(s[0]);
-                int y = Integer.parseInt(s[1]);
-                graph.get(x).add(y);
-                indegree[y]++;
+                int start = Integer.parseInt(s[0]) - 1;
+                int end = Integer.parseInt(s[1]) - 1;
+                seq.get(start).add(end);
+                indegree[end]++;
             }
-
-            // 목표 건물
             int w = Integer.parseInt(br.readLine());
 
-            // 위상 정렬
-            Queue<Integer> queue = new LinkedList<>();
-            for (int i = 1; i <= n; i++) {
+            Queue<Integer> q = new LinkedList<>();
+            for (int i = 0; i < indegree.length; i++) {
                 if (indegree[i] == 0) {
-                    queue.offer(i);
-                    dp[i] = buildTime[i]; // 초기 시간 설정
+                    q.add(i);
+                    dp[i] = buildTime[i];
                 }
             }
 
-            while (!queue.isEmpty()) {
-                int current = queue.poll();
-                for (int next : graph.get(current)) {
-                    indegree[next]--;
-                    dp[next] = Math.max(dp[next], dp[current] + buildTime[next]);
-                    if (indegree[next] == 0) {
-                        queue.offer(next);
+            while (!q.isEmpty()) {
+                int poll = q.poll();
+                List<Integer> ends = seq.get(poll);
+                for (int end : ends) {
+                    dp[end] = Math.max(dp[end], dp[poll] + buildTime[end]);
+                    indegree[end] -= 1;
+                    if (indegree[end] == 0) {
+                        q.add(end);
                     }
                 }
             }
-
-            // 결과 출력
-            sb.append(dp[w]).append("\n");
+            System.out.println(dp[w - 1]);
         }
-        System.out.println(sb);
     }
 }
