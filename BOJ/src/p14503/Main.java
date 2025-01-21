@@ -1,5 +1,5 @@
 package p14503;
-// 보류
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +26,32 @@ public class Main {
 
         int[] dy = {-1, 0, 1, 0};
         int[] dx = {0, 1, 0, -1};
-        int cnt = 0;
-
+        int cnt = 1;
+        map[y][x] = 2;
+        while (true) {
+            boolean allClean = true;
+            for (int i = 0; i < 4; i++) {
+                d = (d + 3) % 4;
+                int ny = y + dy[d];
+                int nx = x + dx[d];
+                if (map[ny][nx] == 0) {
+                    map[ny][nx] = 2;
+                    cnt++;
+                    y = ny;
+                    x = nx;
+                    allClean = false;
+                    break;
+                }
+            }
+            if (allClean) {
+                int back = (d + 2) % 4;
+                int by = y + dy[back];
+                int bx = x + dx[back];
+                if (map[by][bx] == 1) break;
+                y = by;
+                x = bx;
+            }
+        }
+        System.out.println(cnt);
     }
 }
