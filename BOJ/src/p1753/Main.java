@@ -6,7 +6,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static class Edge {
+    private static class Edge {
         int node, cost;
 
         public Edge(int node, int cost) {
