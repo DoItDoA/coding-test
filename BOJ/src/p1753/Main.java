@@ -1,5 +1,5 @@
 package p1753;
-// 시간 복잡도 (V+E)logV
+// 다익스트라 시간 복잡도 (V+E)logV
 // 암기
 
 import java.util.*;
