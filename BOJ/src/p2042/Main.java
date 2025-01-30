@@ -25,11 +25,11 @@ public class Main {
         int h = (int) Math.ceil(Math.log(n) / Math.log(2));
         int treeSize = (int) Math.pow(2, h + 1);
         tree = new long[treeSize];
-        System.out.println();
+
         init(1, n, 1);
 
         StringBuilder sb = new StringBuilder();
-        while (m-- > 0) {
+        for (int i = 0; i < m + k; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
