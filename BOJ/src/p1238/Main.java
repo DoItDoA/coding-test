@@ -1,5 +1,6 @@
 package p1238;
 // 보류
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +11,6 @@ public class Main {
     private static int[] dp;
     private static int INF = Integer.MAX_VALUE;
     private static List<Edge>[] graph;
-    private static List<Edge>[] graphR;
 
     private static class Edge {
         int node, cost;
@@ -29,48 +29,44 @@ public class Main {
         X = Integer.parseInt(st.nextToken());
 
         graph = new ArrayList[N + 1];
-        graphR = new ArrayList[N + 1];
-        for (int i = 0; i <= N; i++) {
-            graph[i] = new ArrayList<>();
-            graphR[i] = new ArrayList<>();
-        }
+        for (int i = 0; i <= N; i++) graph[i] = new ArrayList<>();
 
         while (M-- > 0) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
-
             graph[a].add(new Edge(b, c));
-            graphR[b].add(new Edge(a, c));
         }
-
+        int max = 0;
         for (int i = 1; i <= N; i++) {
-            dp = new int[N + 1];
-            Arrays.fill(dp, INF);
-            dp[i] = 0;
-
-
+            int time = dijkstra(i, X) + dijkstra(X, i);
+            if (max < time) max = time;
         }
-
-
+        System.out.println(max);
     }
 
-    private static void dijkstra(int start) {
+    private static int dijkstra(int start, int end) {
         PriorityQueue<Edge> q = new PriorityQueue<>((o1, o2) -> o1.cost - o2.cost);
         q.add(new Edge(start, 0));
+        dp = new int[N + 1];
+        Arrays.fill(dp, INF);
+        dp[start] = 0;
 
         while (!q.isEmpty()) {
-            Edge p = q.poll();
-            if (p.cost > dp[p.node]) continue;
+            Edge poll = q.poll();
 
-            for (Edge e : graph[p.node]) {
-                int cost = p.cost + e.cost;
-                if (dp[e.node] > cost) {
-                    dp[e.node] = cost;
-                    q.add(new Edge(e.node, cost));
+            if (poll.cost > dp[poll.node]) continue;
+
+            for (Edge edge : graph[poll.node]) {
+                int cost = edge.cost + poll.cost;
+                if (dp[edge.node] > cost) {
+                    dp[edge.node] = cost;
+                    q.add(new Edge(edge.node, cost));
                 }
             }
         }
+        return dp[end];
     }
+
 }
