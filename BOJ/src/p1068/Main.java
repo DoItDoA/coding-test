@@ -1,5 +1,5 @@
 package p1068;
-
+// 조금 어려움
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,8 +30,16 @@ public class Main {
             } else root = i;
         }
         removeNode = Integer.parseInt(br.readLine());
+        for (int i = 0; i < n; i++) {
+            if (graph[i].size() == 0) continue;
+            if (i == removeNode) graph[i] = new ArrayList<>();
+
+            int idx = graph[i].indexOf(removeNode);
+            if (idx != -1) graph[i].remove(idx);
+        }
+
         dfs(root);
-        System.out.println(root == removeNode ? 0 : cnt);
+        System.out.println(removeNode == root ? 0 : cnt);
     }
 
     private static void dfs(int node) {
@@ -40,7 +48,6 @@ public class Main {
         }
 
         for (int a : graph[node]) {
-            if (a == removeNode) continue;
             dfs(a);
         }
     }
