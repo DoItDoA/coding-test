@@ -1,5 +1,5 @@
 package p10816;
-
+// 어려움
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -28,7 +28,6 @@ public class Main {
         for (String see : noSee) {
             if(noHear.contains(see)){
                 noSeeHear.add(see);
-
             }
         }
         Collections.sort(noSeeHear);

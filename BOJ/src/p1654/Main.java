@@ -27,9 +27,7 @@ public class Main {
             long mid = (left + right) / 2;
             int cnt = 0;
             for (long line : lines) {
-                if (line >= mid) {
-                    cnt += line / mid;
-                }
+                cnt += line / mid;
             }
             if (n <= cnt) {
                 answer = mid;

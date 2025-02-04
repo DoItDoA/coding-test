@@ -1,5 +1,5 @@
 package p1920;
-
+// 이분 탐색 암기
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
