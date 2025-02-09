@@ -21,8 +21,8 @@ public class Main {
     }
 
     private static void binarySearch(int[] position, int c, int n) {
-        int left = 1;
-        int right = position[n - 1] - position[0];
+        int left = 1; // 최소거리
+        int right = position[n - 1] - position[0]; // 최대 거리
         int answer = 0;
         while (left <= right) {
             int mid = (left + right) / 2;
@@ -37,7 +37,7 @@ public class Main {
     }
 
     private static boolean isInstall(int[] positon, int mid, int c) {
-        int first = positon[0];
+        int first = positon[0]; // 첫번째 집에 무조건 설치
         int cnt = 1;
         for (int i = 1; i < positon.length; i++) {
             int distance = positon[i] - first;

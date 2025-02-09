@@ -57,18 +57,16 @@ public class Main {
         }
     }
 
-    static int[][] monitor(int y, int x, int[] dir, int[][] map) {
+    static int[][] monitor(int x, int y, int[] dir, int[][] map) {
         for (int d : dir) {
-            int ny = y;
-            int nx = x;
-            while (true) {
-                ny += dy[d];
-                nx += dx[d];
-                if (ny >= 0 && ny < n && nx >= 0 && nx < m) {
-                    if (map[ny][nx] == 6) break;
-                    if (map[ny][nx] == 0) map[ny][nx] = -1;
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            while (nx >= 0 && nx < n && ny >= 0 && ny < m && map[nx][ny] != 6) {
+                if (map[nx][ny] == 0) {
+                    map[nx][ny] = -1;
                 }
-                if (ny < 0 || ny == n || nx < 0 || nx == m) break;
+                nx += dx[d];
+                ny += dy[d];
             }
         }
         return map;
