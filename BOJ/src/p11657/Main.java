@@ -58,6 +58,9 @@ public class Main {
         for (int i = 1; i <= n; i++) {
             boolean isUpdated = false;
             for (Edge edge : graph) {
+                long l = dp[edge.start];
+                long l1 = dp[edge.end];
+                long l2 = dp[edge.start];
                 if (dp[edge.start] != INF && dp[edge.end] > dp[edge.start] + edge.cost) {
                     dp[edge.end] = dp[edge.start] + edge.cost;
                     isUpdated = true;
