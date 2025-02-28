@@ -42,23 +42,18 @@ public class Study {
 
         // 2️⃣ DP 테이블 초기화 (INF 값으로 설정)
         int[][] dp = new int[maxAlp + 1][maxCop + 1];
-        for (int[] row : dp) {
-            Arrays.fill(row, Integer.MAX_VALUE);
+        for(int i=alp; i<=maxAlp; i++){
+            int a = i-alp;
+            for(int j=cop; j<=maxCop; j++){
+                int b= j-cop;
+                dp[i][j] = a+b;
+            }
         }
         dp[alp][cop] = 0;
 
         // 3️⃣ DP 갱신 (작은 상태부터 큰 상태로 확장)
         for (int i = alp; i <= maxAlp; i++) {
             for (int j = cop; j <= maxCop; j++) {
-                // 1) "알고력 증가" 선택 (비용: 1)
-                if (i + 1 <= maxAlp) {
-                    dp[i + 1][j] = Math.min(dp[i + 1][j], dp[i][j] + 1);
-                }
-                // 2) "코딩력 증가" 선택 (비용: 1)
-                if (j + 1 <= maxCop) {
-                    dp[i][j + 1] = Math.min(dp[i][j + 1], dp[i][j] + 1);
-                }
-
                 // 3) "문제 풀이" 선택
                 for (int[] problem : problems) {
                     int reqAlp = problem[0], reqCop = problem[1];
