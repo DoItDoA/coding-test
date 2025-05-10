@@ -6,7 +6,6 @@ import java.util.*;
 public class Main {
     private static int s, d;
     private static boolean[] check = new boolean[200001];
-
     static class Subin {
         int current;
         int sec;
@@ -26,7 +25,7 @@ public class Main {
             System.out.println(0);
             return;
         }
-        int sec = bfs(new Subin(s, 0));
+        int sec = bfs(new Subin(5, 0));
         System.out.println(sec);
     }
 
