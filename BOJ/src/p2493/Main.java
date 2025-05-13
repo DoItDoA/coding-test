@@ -1,32 +1,35 @@
-package p1138;
+package p2493;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
         int[] arr = new int[n];
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(st.nextToken());
 
-        int[] rs = new int[n];
+        StringBuilder sb = new StringBuilder();
+        Stack<int[]> stack = new Stack<>();
         for (int i = 0; i < n; i++) {
-            int num = arr[i];
-            for (int j = 0; j < n; j++) {
-                if (num == 0) {
-                    if (rs[j] != 0) continue;
-                    rs[j] = i + 1;
+            while (!stack.isEmpty()) {
+                if (stack.peek()[1] >= arr[i]) {
+                    sb.append(stack.peek()[0] + " ");
                     break;
                 }
-                if (num > 0 && rs[j] == 0) num--;
+                stack.pop();
             }
+
+            if (stack.isEmpty()) {
+                sb.append(0 + " ");
+            }
+            stack.add(new int[]{i + 1, arr[i]});
         }
-        StringBuilder sb = new StringBuilder();
-        for (int r : rs) sb.append(r + " ");
         System.out.println(sb);
     }
 }

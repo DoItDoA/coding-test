@@ -6,40 +6,37 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input = br.readLine();
-        StringTokenizer st = new StringTokenizer(input);
-        int n = Integer.parseInt(st.nextToken());
-        int d = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
-        int c = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(arr);
 
-        int[] arr = new int[n + k - 1];
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(br.readLine());
-        }
-        for (int i = 0; i < k - 1; i++) {
-            arr[n + i] = arr[i];
-        }
-        int[] sushi = new int[d + 1];
-
-        int max = 0;
-        for (int i = 0; i < n; i++) {
-            int cnt = 0;
-            sushi = new int[d + 1];
-            for (int j = i; j < i + k; j++) {
-                int num = arr[j];
-
-                if (sushi[num] == 0) {
-                    cnt++;
-                }
-                sushi[num]++;
+        int left = 0;
+        int right = n - 1;
+        int min = Integer.MAX_VALUE;
+        int l = 0, r = 0;
+        while (left < right) {
+            int sum = arr[left] + arr[right];
+            int abs = Math.abs(sum);
+            if (min > abs) {
+                min = abs;
+                l = arr[left];
+                r = arr[right];
             }
-            if (sushi[c] == 0) cnt++;
-            if(max < cnt) max = cnt;
+
+            if (sum > 0) {
+                right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                l = arr[left];
+                r = arr[right];
+                break;
+            }
         }
-        System.out.println(max);
+        System.out.println(l + " " + r);
     }
 }
